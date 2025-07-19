@@ -23,7 +23,7 @@ def start_motion_detection_with_recognition():
 
     
     if not firebase_admin._apps:
-        cred = credentials.Certificate("survillance-monitoring-firebase-adminsdk-fbsvc-cfd53f5177.json")
+        cred = credentials.Certificate("")
         firebase_admin.initialize_app(cred)
     db = firestore.client()
 
@@ -52,9 +52,9 @@ def start_motion_detection_with_recognition():
             print("Email failed:", str(e))
 
     def send_sms(sms_body, recipient_phone_number):
-        account_sid = "AC83e57e3b37c54c79d3fe5a4271fc4ab8"
-        auth_token = "0ffe3e021327ae8b43c83f9cfbcde793"
-        sender_phone_number = "+19038664372"
+        account_sid = ""
+        auth_token = ""
+        sender_phone_number = ""
         client = Client(account_sid, auth_token)
         message = client.messages.create(
             body=sms_body, from_=sender_phone_number, to=recipient_phone_number
@@ -113,8 +113,8 @@ def start_motion_detection_with_recognition():
                         os.makedirs("Suspicious")
                     cv2.imwrite(filename, frame)
                     body = f"Unknown person detected at {timestamp}"
-                    send_email("Unknown Face Alert", body, "pradeep8052@gmail.com", attachment=filename)
-                    send_sms(body, "+917525861143")
+                    send_email("Unknown Face Alert", body, "", attachment=filename)
+                    send_sms(body, "")
                     send_data_to_firebase("Motion_Time", {"status": "unknown", "time": timestamp})
 
         cv2.imshow("Monitoring", frame)
